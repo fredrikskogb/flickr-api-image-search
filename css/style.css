@@ -112,7 +112,7 @@ i:hover {
     text-align: center;
 }
 
-#searchResults {
+#searchResult {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -161,7 +161,7 @@ img:hover {
 }
 
 
-#searchResultsFloat{
+#searchResultFloat{
     text-align: center;
     padding-top: 7em;
 }
