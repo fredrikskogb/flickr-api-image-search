@@ -1,0 +1,253 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* General CSS */
+
+* {
+    font-family: 'Sniglet', cursive;
+    font-size: 85%;
+}
+
+object {
+    height: 18px;
+    width: 18px;
+}
+
+i:hover {
+    cursor: pointer;
+}
+
+.d-none{
+    display: none;
+}
+
+.description {
+    color: white;
+    position: relative;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    width: 65%;
+    padding-top: 1em;
+    text-align: center;
+}
+
+.title{
+    font-size: 1.2em;
+    margin-top: 1em;
+}
+.closeButton{
+    color: white;
+    position: absolute;
+    top: 20px;
+    left: 93vw;
+    color: white;
+    font-size: 1.5em;
+}
+
+.searchBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top:0;
+    width: 100vw;
+    padding: 1em;
+    box-shadow: 0px 0px 5px 5px rgba(223, 223, 223, 0.164);
+    border-bottom: 0.5px solid rgba(202, 202, 202, 0.432);
+    background-color: white;
+}
+
+.searchBox input {
+    border: 1px solid rgb(202, 202, 202);
+    margin-right: 2em;
+    margin-bottom: 1em;
+    text-align: center;
+}
+
+#searchResults {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 7em;
+}
+
+.itemsWrapper{
+    display: flex;
+    flex: 33%;
+    height: 250px;
+    box-sizing: border-box;
+    padding: 2em;
+    justify-content: center;
+}
+
+.imageWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.imageCropped {
+    max-height: 90%;
+    max-width: 250px;
+    object-fit: scale-down;
+}
+
+.imageFull {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.secondView {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    flex: 100%;
+    background-color: #232129;
+    width: 100vw;
+    justify-content: flex-start;
+}
+
+img:hover {
+    cursor: pointer;
+}
+
+
+#searchResultsFloat{
+    text-align: center;
+    padding-top: 7em;
+}
+
+.itemsWrapperFloat{
+    float: left;  
+    height: 250px;  
+    width: 100%;
+    padding: 2em 0 2em 0;
+}
+
+
+.imageWrapperFloat{
+    text-align: center;
+}
+
+@media only screen and (min-width: 768px) {
+
+    .itemsWrapperFloat{
+        width: 50%;
+    }
+
+    .description {
+        position: absolute;
+        left: 33%;
+        top: 10%;
+        width: 33%;
+    }
+
+    .secondView {
+        top: 50%;
+        transform: translateY(-50%);
+        height: initial;
+    }
+
+    .imageFull{
+        margin-left: 4em;
+    }
+} 
+
+
+@media only screen and (min-width: 992px) {
+
+    .itemsWrapperFloat{
+        width: 33%;
+    }
+
+    .imageFull{
+        margin-left: 8em;
+    }
+
+    .description {
+        left: 20%;
+    }
+
+} 
+
+
+/* Loading animation */
+.lds-dual-ring {
+    display: none;
+    width: 64px;
+    height: 64px;
+    margin: auto;
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    bottom: 0; 
+    right: 0;
+}
+.lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 46px;
+    height: 46px;
+    margin: 1px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    border-color: grey transparent grey transparent;
+    animation: lds-dual-ring 0.6s linear infinite;
+}
+@keyframes lds-dual-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+}
