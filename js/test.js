@@ -1,24 +1,42 @@
 $(document).ready(function(){
 
-    var isFloat;
-    // Remove/add classes based on if float or flex is checked. Store value of radio input
-       
-    function flexOrFloat(){
+    /*$("#value").on("keypress", function (e) {
+        if(e.which === 13){
+            callback();
+        }
+    });*/
+    
+    $("#search").on("click", function(){
+    
+        $(".lds-dual-ring").show(); // loading animation
+
+        var isFloat;
+        // Store value of radio input  
         if($('#float').is(':checked')){
-            $("#searchResults").attr("id", "searchResultsFloat");
-            $(".itemsWrapper").addClass("itemsWrapperFloat").removeClass("itemsWrapper");
-            $(".imageWrapper").addClass("imageWrapperFloat").removeClass("imageWrapper");
             isFloat = true;
-        }else if($("#searchResultsFloat").length > 0){ // Check if float has been used
-            $("#searchResultsFloat").attr("id", "searchResults");
-            $(".itemsWrapperFloat").addClass("itemsWrapper").removeClass("itemsWrapperFloat");
-            $(".imageWrapperFloat").addClass("imageWrapper").removeClass("imageWrapperFloat");
+        }else{ // Check if float has been used
             isFloat = false;
         }
-    }
-    
-    function apiCall(){
-        $(".lds-dual-ring").show(); // loading animation
+
+        // Clear the old search result
+        function refreshResult(){
+            let parent = $("#searchResults");
+            if(isFloat){
+                parent = $("#searchResultsFloat");
+            }
+            if(parent[0].hasChildNodes()){
+                while (parent[0].hasChildNodes()){
+                    parent[0].removeChild(parent[0].lastChild);
+                }
+            }
+        }
+
+        if($("input").val().length > 0){
+            refreshResult();
+        }else{
+            alert("Search value missing.");
+        }
+
         $.getJSON( "http://www.flickr.com/services/feeds/photos_public.gne?tags=" + $("input").val() + "&format=json&jsoncallback=?", function(data){
             
             // Reach the array inside the object 
@@ -50,55 +68,8 @@ $(document).ready(function(){
             $(".imageCropped").wrap("<div class='" + imageWrapper + "'></div>"); // Wrap image to <div>
             $(".lds-dual-ring").hide(); // loading animation
 
-            
-        });
-    }
 
-    // Clears the search result by removing the children of the result wrapper
-    function refreshResult(){
-        let parent = $("#searchResults");
-        if(isFloat){
-            parent = $("#searchResultsFloat");
-        }
-        if(parent[0].hasChildNodes()){
-            while (parent[0].hasChildNodes()){
-                parent[0].removeChild(parent[0].lastChild);
-            }
-        }
-    }
-
-    // Give the elements their initial CSS properties by removing/adding classes and attributes
-    function closeWindow(){
-        $(".secondView").removeClass("secondView");
-        $(".imageFull").removeClass("imageFull", 100);
-        $(".description").addClass("d-none");
-        $(".imageCropped").css("cursor", "pointer"); // Display pointer where it previously was default
-        $(".itemsWrapperFloat").removeAttr("style");
-        $(".itemsWrapper").removeAttr("style");
-        $(".description").removeAttr("style");
-        $(".imageWrapperFloat").removeAttr("style");
-    }
-
-    // Check if flex or float, clear the old search result before displaying the new.
-    function callback(){
-        if($("input").val().length > 0){
-            flexOrFloat();
-            refreshResult();
-            apiCall();
-        }else{
-            alert("Search value missing.");
-        }
-    }
-
-    $("#search").on("click", callback);
-
-    $("#value").on("keypress", function (e) {
-        if(e.which === 13){
-            callback();
-        }
-    });
-
-    // Clicking image
+            // Clicking image
     $(document).on("click", ".imageCropped", function(){
 
         let itemsWrapper = ".itemsWrapper";
@@ -134,8 +105,24 @@ $(document).ready(function(){
         
     });
 
-    $(document).on("click", ".closeButton", function(){
-        closeWindow();
+        });
+            // Give the elements their initial CSS properties by removing/adding classes and attributes
+
+        function closeWindow(){
+            $(".secondView").removeClass("secondView");
+            $(".imageFull").removeClass("imageFull", 100);
+            $(".description").addClass("d-none");
+            $(".imageCropped").css("cursor", "pointer"); // Display pointer where it previously was default
+            $(".itemsWrapperFloat").removeAttr("style");
+            $(".itemsWrapper").removeAttr("style");
+            $(".description").removeAttr("style");
+            $(".imageWrapperFloat").removeAttr("style");
+        }
+
+        $(document).on("click", ".closeButton", function(){
+            closeWindow();
+        });
+    
     });
 
 });
