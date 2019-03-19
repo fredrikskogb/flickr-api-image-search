@@ -42,15 +42,16 @@ $(document).ready(function(){
                 // Reach the array inside the object 
                 let array = Object.values(data)[5];
                 // Put the values in html
-                $.each(array, function(index){
-                    let title = "<p class='title'>" + array[index].title + "</p>";
-                    let date = "<p>" + array[index].date_taken + "</p>";
-                    let image = "<img src='" + array[index].media.m + "' class='imageCropped'>";
-
-                    searchResult.append("<div class='" + itemsWrapper + "'>" + image + "<div class='description d-none'>" + date + title +  "</div>" + "<i class='closeButton fas fa-times'></i>" + "</div>");
+                $.each(array, function(index, element){
+                    let title = $("<p>").addClass("title").text(element.title);;
+                    let date = $("<p>").text(element.date_taken);
+                    let description = $("<div>").addClass("description d-none").append([title, date])
+                    let image = $("<img>").attr("src", element.media.m).addClass("imageCropped");
+                    image = $("<div>").addClass(imageWrapper).append(image); // Wrap image to div
+                    let closeButton = $("<i>").addClass("closeButton fas fa-times");
+                    let singleResult =  $("<div>").addClass(itemsWrapper).append([image, description, closeButton])
+                    searchResult.append(singleResult);
                 });
-                
-                $(".imageCropped").wrap("<div class='" + imageWrapper + "'></div>"); // Wrap image to <div>
                 $(".lds-dual-ring").hide(); // loading animation
             });
         }else{
@@ -71,7 +72,9 @@ $(document).ready(function(){
     });
 
     // Give the elements their initial CSS properties by removing/adding classes and attributes
-    function closeWindow(){
+    // Not needed if using jQueryUI
+
+    /*function closeWindow(){
         $(".secondView").removeClass("secondView");
         $(".imageFull").removeClass("imageFull", 100);
         $(".description").addClass("d-none");
@@ -79,12 +82,15 @@ $(document).ready(function(){
         $("." + itemsWrapper).removeAttr("style");
         $(".description").removeAttr("style");
         $(".imageWrapperFloat").removeAttr("style");
-    }
+        $(".closeButton").removeAttr("style");
+    }*/
 
+    // Without jQueryUI
     // Clicking image
-    $(document).on("click", ".imageCropped", function(){
+    /*$(document).on("click", ".imageCropped", function(){
         if(!$(this).closest("." + itemsWrapper).hasClass("secondView")){ // If this is not already open, enables opening of other images when this is open
             closeWindow(); // Close display window if already open
+            
             if(isFloat){ // Add style for float display to THIS wrapper
                 $(this).closest("." + itemsWrapper).css(
                     {
@@ -103,15 +109,50 @@ $(document).ready(function(){
                     $(this).closest("." + itemsWrapper).css("flex-direction", "column");
                 }
             }
+            
             $(this).css("cursor", "default"); // Image won't be able to click again, change cursor
             $(this).closest("." + itemsWrapper).addClass("secondView"); // Get new position for content wrapper
             $(this).parent().siblings(".d-none").removeClass("d-none", 50); // Display description
             $(this).addClass("imageFull", 100); // Put image to original size
-        }
-    });
+            $(this).parent().siblings(".closeButton").show();
 
+        }*/
+
+    // With jQueryUI
+    $(function(){
+        $( "#dialog" ).dialog({
+            autoOpen: false,
+            show: {
+                effect: "blind",
+                duration: 200
+            },
+            hide: {
+                effect: "explode",
+                duration: 200
+            },
+            minWidth: 200,
+            minHeight: 200
+        });
+         
+        $(document).on("click", ".imageCropped", function(){
+            // Get values
+            let src = $(this).attr("src");
+            let title = $(this).parent().siblings(".d-none").find(".title")[0].innerHTML;
+            let date = $(this).parent().siblings(".d-none").find("p")[0].innerHTML; 
+            date = date.slice(0, -9).replace("T", " ");
+            // Put values in the dialog
+            $("#dialog").dialog("option", "title", date);
+            $("#dialogDescription").text(title);
+            $("#dialogImage").attr("src", src);
+            $("#dialog").dialog( "open" );
+        });
+    });
+    //});
+
+    // Not needed if using jQueryUI
+    /*
     $(document).on("click", ".closeButton", function(){
         closeWindow();
-    });
+    });*/
 
 });

@@ -89,6 +89,7 @@ i:hover {
     left: 93vw;
     color: white;
     font-size: 1.5em;
+    display: none;
 }
 
 .searchBox{
@@ -175,6 +176,14 @@ img:hover {
 
 
 .imageWrapperFloat{
+    text-align: center;
+}
+
+#dialogImage {
+    cursor: default;
+}
+
+#dialog {
     text-align: center;
 }
 
