@@ -28,7 +28,6 @@ $(document).ready(function(){
     }
 
     function search(){
-
         if($("input").val().length > 0){
             $(".lds-dual-ring").show(); // loading animation
             let searchResult = $("#searchResult");
@@ -71,56 +70,9 @@ $(document).ready(function(){
         }
     });
 
-    // Give the elements their initial CSS properties by removing/adding classes and attributes
-    // Not needed if using jQueryUI
-
-    /*function closeWindow(){
-        $(".secondView").removeClass("secondView");
-        $(".imageFull").removeClass("imageFull", 100);
-        $(".description").addClass("d-none");
-        $(".imageCropped").css("cursor", "pointer"); // Display pointer where it previously was default
-        $("." + itemsWrapper).removeAttr("style");
-        $(".description").removeAttr("style");
-        $(".imageWrapperFloat").removeAttr("style");
-        $(".closeButton").removeAttr("style");
-    }*/
-
-    // Without jQueryUI
-    // Clicking image
-    /*$(document).on("click", ".imageCropped", function(){
-        if(!$(this).closest("." + itemsWrapper).hasClass("secondView")){ // If this is not already open, enables opening of other images when this is open
-            closeWindow(); // Close display window if already open
-            
-            if(isFloat){ // Add style for float display to THIS wrapper
-                $(this).closest("." + itemsWrapper).css(
-                    {
-                        "width" : "100%",
-                        "text-align" : "initial"
-                    }
-                );
-                if($(window).width() >= 768){
-                    $(this).parent().css("text-align", "left");
-                    $(this).closest("." + itemsWrapper).css("padding-left", "2em");
-                }else{
-                    $(this).closest("." + itemsWrapper).css("width", "100vw");
-                }    
-            }else{ // isFlex
-                if($(window).width() < 768){
-                    $(this).closest("." + itemsWrapper).css("flex-direction", "column");
-                }
-            }
-            
-            $(this).css("cursor", "default"); // Image won't be able to click again, change cursor
-            $(this).closest("." + itemsWrapper).addClass("secondView"); // Get new position for content wrapper
-            $(this).parent().siblings(".d-none").removeClass("d-none", 50); // Display description
-            $(this).addClass("imageFull", 100); // Put image to original size
-            $(this).parent().siblings(".closeButton").show();
-
-        }*/
-
     // With jQueryUI
     $(function(){
-        $( "#dialog" ).dialog({
+        $("#dialog").dialog({
             autoOpen: false,
             show: {
                 effect: "blind",
@@ -138,7 +90,7 @@ $(document).ready(function(){
             // Get values
             let src = $(this).attr("src");
             let title = $(this).parent().siblings(".d-none").find(".title")[0].innerHTML;
-            let date = $(this).parent().siblings(".d-none").find("p")[0].innerHTML; 
+            let date = $(this).parent().siblings(".d-none").find("p")[1].innerHTML;
             date = date.slice(0, -9).replace("T", " ");
             // Put values in the dialog
             $("#dialog").dialog("option", "title", date);
@@ -147,12 +99,56 @@ $(document).ready(function(){
             $("#dialog").dialog( "open" );
         });
     });
-    //});
 
-    // Not needed if using jQueryUI
-    /*
+/*
+    // Without jQueryUI
+    // Give the elements their initial CSS properties by removing/adding classes and attributes
+    function closeWindow(){
+        $(".secondView").removeClass("secondView");
+        $(".imageFull").removeClass("imageFull", 100);
+        $(".description").addClass("d-none");
+        $(".imageCropped").css("cursor", "pointer"); // Display pointer where it previously was default
+        $("." + itemsWrapper).removeAttr("style");
+        $(".description").removeAttr("style");
+        $(".imageWrapperFloat").removeAttr("style");
+        $(".closeButton").removeAttr("style");
+    }
+
+    // Clicking image
+    $(document).on("click", ".imageCropped", function(){
+        if(!$(this).closest("." + itemsWrapper).hasClass("secondView")){ // If this is not already open, enables opening of other images when this is open
+            closeWindow(); // Close display window if already open
+            
+            if(isFloat){ // Add style for float display to THIS wrapper
+                $(this).closest("." + itemsWrapper).css(
+                    {
+                        "width" : "100%",
+                        "text-align" : "initial"
+                    }
+                );
+                if($(window).width() >= 750){
+                    $(this).parent().css("text-align", "left");
+                    $(this).closest("." + itemsWrapper).css("padding-left", "2em");
+                }else{
+                    $(this).closest("." + itemsWrapper).css("width", "100vw");
+                }    
+            }else{ // isFlex
+                if($(window).width() <= 750){
+                    $(this).closest("." + itemsWrapper).css("flex-direction", "column");
+                }
+            }
+            
+            $(this).css("cursor", "default"); // Image won't be able to click again, change cursor
+            $(this).closest("." + itemsWrapper).addClass("secondView"); // Get new position for content wrapper
+            $(this).parent().siblings(".d-none").removeClass("d-none", 50); // Display description
+            $(this).addClass("imageFull", 100); // Put image to original size
+            $(this).parent().siblings(".closeButton").show();
+
+        }
+    });
+
     $(document).on("click", ".closeButton", function(){
         closeWindow();
-    });*/
-
+    });
+*/
 });
