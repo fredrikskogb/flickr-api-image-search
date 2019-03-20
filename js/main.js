@@ -70,7 +70,7 @@ $(document).ready(function(){
         }
     });
 
-    // With jQueryUI
+    // Open dialog with jQueryUI
     $(function(){
         $("#dialog").dialog({
             autoOpen: false,
@@ -91,7 +91,7 @@ $(document).ready(function(){
             let src = $(this).attr("src");
             let title = $(this).parent().siblings(".d-none").find(".title")[0].innerHTML;
             let date = $(this).parent().siblings(".d-none").find("p")[1].innerHTML;
-            date = date.slice(0, -9).replace("T", " ");
+            date = date.slice(0, -9).replace("T", " "); // Trim date
             // Put values in the dialog
             $("#dialog").dialog("option", "title", date);
             $("#dialogDescription").text(title);
