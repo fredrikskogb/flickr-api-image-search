@@ -28,7 +28,7 @@ $(document).ready(function(){
     }
 
     function search(){
-        if($("input").val().length > 0){
+        if($("#value").val().length > 0){
             $(".lds-dual-ring").show(); // loading animation
             let searchResult = $("#searchResult");
             if(isFloat){
@@ -39,9 +39,9 @@ $(document).ready(function(){
             $.getJSON( "http://www.flickr.com/services/feeds/photos_public.gne?tags=" + $("input").val() + "&format=json&jsoncallback=?", function(data){
                 
                 // Reach the array inside the object 
-                let array = Object.values(data)[5];
+                let content = Object.values(data)[5];
                 // Put the values in html
-                $.each(array, function(index, element){
+                $.each(content, function(index, element){
                     let title = $("<p>").addClass("title").text(element.title);;
                     let date = $("<p>").text(element.date_taken);
                     let description = $("<div>").addClass("description d-none").append([title, date])
