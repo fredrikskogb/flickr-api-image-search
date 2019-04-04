@@ -42,13 +42,13 @@ $(document).ready(function(){
                 let content = Object.values(data)[5];
                 // Put the values in html
                 $.each(content, function(index, element){
-                    let title = $("<p>").addClass("title").text(element.title);;
+                    let title = $("<p>").addClass("title").text(element.title);
                     let date = $("<p>").text(element.date_taken);
-                    let description = $("<div>").addClass("description d-none").append([title, date])
+                    let description = $("<div>").addClass("description d-none").append([title, date]);
                     let image = $("<img>").attr("src", element.media.m).addClass("imageCropped");
                     image = $("<div>").addClass(imageWrapper).append(image); // Wrap image to div
                     let closeButton = $("<i>").addClass("closeButton fas fa-times");
-                    let singleResult =  $("<div>").addClass(itemsWrapper).append([image, description, closeButton])
+                    let singleResult =  $("<div>").addClass(itemsWrapper).append([image, description, closeButton]);
                     searchResult.append(singleResult);
                 });
                 $(".lds-dual-ring").hide(); // loading animation
